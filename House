@@ -1,0 +1,217 @@
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <cmath>
+#include <math.h>
+
+#define SCREEN_WIDTH 840
+#define SCREEN_HEIGHT 680
+# define M_PI 3.141592653
+
+
+
+int main(void)
+{
+    GLFWwindow* window;
+
+    // Initialize the library
+    if (!glfwInit())
+    {
+        return -1;
+    }
+
+    // Create a windowed mode window and its OpenGL context
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Home Assign", NULL, NULL);
+
+    if (!window)
+    {
+        glfwTerminate();
+        return -1;
+    }
+
+    // Make the window's context current
+    glfwMakeContextCurrent(window);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glViewport(4.0f, 4.0f, SCREEN_WIDTH, SCREEN_HEIGHT); // specifies the part of the window to which OpenGL will draw (in pixels), convert from normalised to pixels
+    glMatrixMode(GL_PROJECTION); // projection matrix defines the properties of the camera that views the objects in the world coordinate frame. Here you typically set the zoom factor, aspect ratio and the near and far clipping planes
+    glLoadIdentity(); // replace the current matrix with the identity matrix and starts us a fresh because matrix transforms such as glOrpho and glRotate cumulate, basically puts us at (0, 0, 0)
+    glOrtho(1, SCREEN_WIDTH, 0, SCREEN_HEIGHT, 0, 1); // essentially set coordinate system
+    glMatrixMode(GL_MODELVIEW); // (default matrix mode) modelview matrix defines how your objects are transformed (meaning translation, rotation and scaling) in your world
+    glLoadIdentity(); // same as above comment
+
+
+    // Loop until the user closes the window
+    while (!glfwWindowShouldClose(window))
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // Begin the polygon
+        glColor3f(0.2, 0.4, 0.3);
+        //glLineWidth(5);
+        glBegin(GL_LINE_LOOP);
+        // Create the polygon
+        glVertex2f(100, 400);
+        glVertex2f(700, 400);
+        glVertex2i(700, 340);
+        glVertex2i(650, 340);
+        glVertex2i(650, 100);
+        glVertex2f(150, 100);
+        glVertex2f(150, 340);
+        glVertex2f(100, 340);
+        glEnd();
+
+        //window 1
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(530, 320);
+        glVertex2i(630, 320);
+        glVertex2i(630, 230);
+        glVertex2i(530, 230);
+        glEnd();
+
+        //window 2
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(170, 320);
+        glVertex2i(270, 320);
+        glVertex2i(270, 230);
+        glVertex2i(170, 230);
+        glEnd();
+
+        //Door
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(350, 320);
+        glVertex2i(450, 320);
+        glVertex2i(450, 100);
+        glVertex2i(350, 100);
+        glEnd();
+
+        //Door knob
+        glPointSize(15);
+        glBegin(GL_POINTS);
+        glVertex2i(435, 200);
+        glEnd();
+
+        //Lines on windows
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(170, 320);
+        glVertex2i(220, 320);
+        glVertex2i(220, 275);
+        glVertex2i(170, 275);
+        glEnd();
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(220, 320);
+        glVertex2i(270, 320);
+        glVertex2i(270, 275);
+        glVertex2i(220, 275);
+        glEnd();
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(170, 275);
+        glVertex2i(220, 275);
+        glVertex2i(220, 230);
+        glVertex2i(170, 230);
+        glEnd();
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(530, 320);
+        glVertex2i(580, 320);
+        glVertex2i(580, 275);
+        glVertex2i(530, 275);
+        glEnd();
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(530, 275);
+        glVertex2i(580, 275);
+        glVertex2i(580, 230);
+        glVertex2i(530, 230);
+        glEnd();
+        glColor3f(0.2, 0.4, 0.3);
+        glLineWidth(3);
+        glBegin(GL_LINE_LOOP);
+        glVertex2i(580, 320);
+        glVertex2i(630, 320);
+        glVertex2i(630, 275);
+        glVertex2i(580, 275);
+        glEnd();
+        
+        //roof
+        int centerx = 400;//x axis center
+        int centery = 400;//y axis center
+        int roofr = 175;//radius
+        int roofd = 350;//diameter
+        float PI = 3.141592653589793238f;
+        float semicircleangle = PI * 1.0f;
+        int steps = 550;
+        glBegin(GL_LINE_LOOP);
+
+        for (int i = 0; i < steps; i++) {
+            float theta = semicircleangle * float(i) / float(steps);//get the current angle
+            float x = roofr * cosf(theta);//calculate the x component
+            float y = roofr * sinf(theta);//calculate the y component
+            glVertex2f(x + centerx, y + centery);//output vertex
+
+        }
+        glEnd();
+
+        //CRESENT
+       
+            GLfloat rx = 50;
+            GLfloat ry = 50;
+            GLfloat cx = 650;
+            GLfloat cy = 600;
+           
+            glBegin(GL_POLYGON);
+            for (int i = 0; i <= 100; i++)
+            {
+                glColor3f(1.0, 0.5, 0.0);
+                float angle = 2 * 3.146 * i / 100;
+                float x = rx * cosf(angle);
+                float y = ry * sinf(angle);
+                glVertex2f(x + cx, y + cy);
+            }
+            glEnd();
+
+            GLfloat radx = 50;
+            GLfloat rady = 50;
+            GLfloat cpx = 670;
+            GLfloat cpy = 620;
+
+            glBegin(GL_POLYGON);
+            for (int i = 0; i <= 100; i++)
+            {
+                glColor3f(1.0, 1.0, 1.0);
+                float angle = 2 * 3.146 * i / 100;
+                float x = radx * cosf(angle);
+                float y = rady * sinf(angle);
+                glVertex2f(x + cpx, y + cpy);
+            }
+            glEnd();
+        
+        // render OpenGL here
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glDrawArrays(GL_POLYGON, 0, 5);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+        // Swap front and back buffers
+        glfwSwapBuffers(window);
+
+        // Poll for and process events
+        glfwPollEvents();
+    }
+    //display();
+    
+    glfwTerminate();
+
+    return 0;
+}
